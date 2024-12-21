@@ -9,6 +9,7 @@ import (
 	"time"
 
 	flags "github.com/jessevdk/go-flags"
+	"github.com/msh100/modem-stats/modems/coda56"
 	"github.com/msh100/modem-stats/modems/comhemc2"
 	"github.com/msh100/modem-stats/modems/superhub3"
 	"github.com/msh100/modem-stats/modems/superhub4"
@@ -94,6 +95,12 @@ func main() {
 			FetchTime: fetchTime,
 			Username:  utils.Getenv("ROUTER_USER", commandLineOpts.Username),
 			Password:  utils.Getenv("ROUTER_PASS", commandLineOpts.Password),
+		}
+	case "coda56":
+		modem = &coda56.Modem{
+			IPAddress: utils.Getenv("ROUTER_IP", commandLineOpts.ModemIP),
+			Stats:     body,
+			FetchTime: fetchTime,
 		}
 	default:
 		log.Fatalf("unknown modem: %s", routerType)
