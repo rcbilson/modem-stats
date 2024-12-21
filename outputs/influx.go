@@ -24,9 +24,11 @@ func PrintForInflux(routerStats utils.ModemStats) {
 				keys,
 				fmt.Sprintf("channel=%d", downChannel.Channel),
 				fmt.Sprintf("id=%d", downChannel.ChannelID),
-				fmt.Sprintf("modulation=%s", downChannel.Modulation),
 				fmt.Sprintf("scheme=%s", downChannel.Scheme),
 			)
+			if downChannel.Modulation != "" {
+				keys = append(keys, fmt.Sprintf("modulation=%s", downChannel.Modulation))
+			}
 			values = append(
 				values,
 				fmt.Sprintf("frequency=%d", downChannel.Frequency),
